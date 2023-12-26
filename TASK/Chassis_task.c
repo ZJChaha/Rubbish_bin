@@ -1,12 +1,12 @@
 /*****************************************************************************************************
 *																		  ,~.
-*	ÓÒ±ßÊÇÎÒ¼Ò¸ç¸ç£¬ÄÜ±£ÓÓ³ÌÐò²»³öbug£¬Ç§Íò±ð¶¯£¬Ð¡ÐÄËüÀ´×ÄÄã--------->  ,-'__ `-,
+*	Ã“Ã’Â±ÃŸÃŠÃ‡ÃŽÃ’Â¼Ã’Â¸Ã§Â¸Ã§Â£Â¬Ã„ÃœÂ±Â£Ã“Ã“Â³ÃŒÃÃ²Â²Â»Â³Ã¶bugÂ£Â¬Ã‡Â§ÃÃ²Â±Ã°Â¶Â¯Â£Â¬ÃÂ¡ÃÃ„Ã‹Ã¼Ã€Â´Ã—Ã„Ã„Ã£--------->  ,-'__ `-,
 *																	  {,-'  `. }              ,')
 *																	 ,( a )   `-.__         ,',')~,
 *																	<=.) (         `-.__,==' ' ' '}
-*	Ô´ÎÄ¼þ:µ×ÅÌ¿ØÖÆÈÎÎñ												  (   )                      /)
+*	Ã”Â´ÃŽÃ„Â¼Ã¾:ÂµÃ—Ã…ÃŒÂ¿Ã˜Ã–Ã†ÃˆÃŽÃŽÃ±												  (   )                      /)
 * 																	   `-'\   ,                    )
-*	×÷Õß:ÕÅ¾û³Û															   |  \        `~.        /
+*	Ã—Ã·Ã•ÃŸ:Ã•Ã…Â¾Ã»Â³Ã›															   |  \        `~.        /
 *																		   \   `._        \      /
 *	2023-7-8																\     `._____,'    ,'
 *																			 `-.             ,'
@@ -16,8 +16,8 @@
 *																				__//--'/`
 *																			  ,--'/`  '
 ******************************************************************************************************/
-//¸üÐÂÈÕÖ¾
-//2023Äê12ÔÂ5ÈÕ£¬ÐÞ¸´ÒÑÖªbug£¬Ìá¸ßÁËÏµÍ³°²È«ÐÔ¡£ÐÞ¸ÄÁË¶à´¦×¢ÊÍ£¬Ìá¸ß¿É¶ÁÐÔ¡£
+//Â¸Ã¼ÃÃ‚ÃˆÃ•Ã–Â¾
+//2023Ã„Ãª12Ã”Ã‚5ÃˆÃ•Â£Â¬ÃÃžÂ¸Â´Ã’Ã‘Ã–ÂªbugÂ£Â¬ÃŒÃ¡Â¸ÃŸÃÃ‹ÃÂµÃÂ³Â°Â²ÃˆÂ«ÃÃ”Â¡Â£ÃÃžÂ¸Ã„ÃÃ‹Â¶Ã Â´Â¦Ã—Â¢ÃŠÃÂ£Â¬ÃŒÃ¡Â¸ÃŸÂ¿Ã‰Â¶ÃÃÃ”Â¡Â£
 
 
 
@@ -36,40 +36,40 @@
 #include "math.h"
 #include "Teach_task.h"
 #include "Detect_task.h"
-//#include "arm_math.h"   //ARMµÄÊýÑ§¿âÃ²ËÆÒý²»½øÀ´£¬Äã¿ÉÒÔ³¢ÊÔÒ»ÏÂ¡£
+//#include "arm_math.h"   //ARMÂµÃ„ÃŠÃ½Ã‘Â§Â¿Ã¢ÃƒÂ²Ã‹Ã†Ã’Ã½Â²Â»Â½Ã¸Ã€Â´Â£Â¬Ã„Ã£Â¿Ã‰Ã’Ã”Â³Â¢ÃŠÃ”Ã’Â»ÃÃ‚Â¡Â£
 
 chassis_t chassis;
-pid_type_def motor_v;//¿ª»·¿ØÖÆµÄpid½á¹¹Ìå£¨ËÙ¶È±Õ»·£¬Î»ÖÃ¿ª»·£©
-pid_type_def Trace_v[4];//±Õ»·¿ØÖÆµÄpid½á¹¹Ìå£¨ËÙ¶È¡¢Î»ÖÃÈ«±Õ»·£©
+pid_type_def motor_v;//Â¿ÂªÂ»Â·Â¿Ã˜Ã–Ã†ÂµÃ„pidÂ½Ã¡Â¹Â¹ÃŒÃ¥Â£Â¨Ã‹Ã™Â¶ÃˆÂ±Ã•Â»Â·Â£Â¬ÃŽÂ»Ã–ÃƒÂ¿ÂªÂ»Â·Â£Â©
+pid_type_def Trace_v[4];//Â±Ã•Â»Â·Â¿Ã˜Ã–Ã†ÂµÃ„pidÂ½Ã¡Â¹Â¹ÃŒÃ¥Â£Â¨Ã‹Ã™Â¶ÃˆÂ¡Â¢ÃŽÂ»Ã–ÃƒÃˆÂ«Â±Ã•Â»Â·Â£Â©
 
 
-const RC_ctrl_t *RC;//ÒýÈëÒ£¿ØÆ÷µÄÖµ
-extern motor_measure_t motor_chassis[7];//CAN×ÜÏß·µ»ØµÄµç»ú×´Ì¬½á¹¹Ìå
-extern chassis_angle_t Chassis_angle;//µ×ÅÌ½Ç¶È½á¹¹Ìå
+const RC_ctrl_t *RC;//Ã’Ã½ÃˆÃ«Ã’Â£Â¿Ã˜Ã†Ã·ÂµÃ„Ã–Âµ
+extern motor_measure_t motor_chassis[7];//CANÃ—ÃœÃÃŸÂ·ÂµÂ»Ã˜ÂµÃ„ÂµÃ§Â»ÃºÃ—Â´ÃŒÂ¬Â½Ã¡Â¹Â¹ÃŒÃ¥
+extern chassis_angle_t Chassis_angle;//ÂµÃ—Ã…ÃŒÂ½Ã‡Â¶ÃˆÂ½Ã¡Â¹Â¹ÃŒÃ¥
 extern TIM_HandleTypeDef htim4;
-extern uint8_t buzzer_flag;//´«¸ø·äÃùÆ÷ÌáÊ¾ÈÎÎñµÄ±êÖ¾
-const static fp32 chassis_pid[3]={4,0,0};//£¨ËÙ¶È±Õ»·£¬Î»ÖÃ¿ª»·£©¿ØÖÆµÄpid²ÎÊý
-const static fp32 Trace_pid[3]={2,0,0.5};//£¨ËÙ¶È¡¢Î»ÖÃÈ«±Õ»·£©¿ØÖÆµÄpid²ÎÊý
+extern uint8_t buzzer_flag;//Â´Â«Â¸Ã¸Â·Ã¤ÃƒÃ¹Ã†Ã·ÃŒÃ¡ÃŠÂ¾ÃˆÃŽÃŽÃ±ÂµÃ„Â±ÃªÃ–Â¾
+const static fp32 chassis_pid[3]={4,0,0};//Â£Â¨Ã‹Ã™Â¶ÃˆÂ±Ã•Â»Â·Â£Â¬ÃŽÂ»Ã–ÃƒÂ¿ÂªÂ»Â·Â£Â©Â¿Ã˜Ã–Ã†ÂµÃ„pidÂ²ÃŽÃŠÃ½
+const static fp32 Trace_pid[3]={2,0,0.5};//Â£Â¨Ã‹Ã™Â¶ÃˆÂ¡Â¢ÃŽÂ»Ã–ÃƒÃˆÂ«Â±Ã•Â»Â·Â£Â©Â¿Ã˜Ã–Ã†ÂµÃ„pidÂ²ÃŽÃŠÃ½
 extern uint8_t Action_init_finish;
   
 void Chassis_task(void const *pvParameters)
 {
 	
     vTaskDelay(750);
-    buzzer_flag=4;//¿ª»úÒôÀÖ	
+   // buzzer_flag=4;//Â¿ÂªÂ»ÃºÃ’Ã´Ã€Ã–	
 	while(!Action_init_finish)
 	{vTaskDelay(10);}
 	
-	buzzer_flag=3;//ÌáÊ¾Action³õÊ¼»¯Íê³É
+	buzzer_flag=3;//ÃŒÃ¡ÃŠÂ¾ActionÂ³ÃµÃŠÂ¼Â»Â¯ÃÃªÂ³Ã‰
 	
 	
-//ÏÂÃæµÄÕâÐ©³õÊ¼»¯º¯Êý·ÅÔÚmainº¯ÊýÀï£¬²»ÒªÏñÎÒÒ»Ñù
+//ÃÃ‚ÃƒÃ¦ÂµÃ„Ã•Ã¢ÃÂ©Â³ÃµÃŠÂ¼Â»Â¯ÂºÂ¯ÃŠÃ½Â·Ã…Ã”ÃšmainÂºÂ¯ÃŠÃ½Ã€Ã¯Â£Â¬Â²Â»Ã’ÂªÃÃ±ÃŽÃ’Ã’Â»Ã‘Ã¹
 	
 //	*******************************	*******************************	*******************************	
-    RC = get_remote_control_point();//½«Ò£¿ØÆ÷µÄÖµËùÔÚµÄµØÖ·´«¸øRC
-	remote_control_init();//Ò£¿ØÆ÷½ÓÊÕ»º³åÇø³õÊ¼»¯
+    RC = get_remote_control_point();//Â½Â«Ã’Â£Â¿Ã˜Ã†Ã·ÂµÃ„Ã–ÂµÃ‹Ã¹Ã”ÃšÂµÃ„ÂµÃ˜Ã–Â·Â´Â«Â¸Ã¸RC
+	remote_control_init();//Ã’Â£Â¿Ã˜Ã†Ã·Â½Ã“ÃŠÃ•Â»ÂºÂ³Ã¥Ã‡Ã¸Â³ÃµÃŠÂ¼Â»Â¯
 	
-    PID_init(&motor_v,PID_POSITION,chassis_pid,12000,0);//pid¿ØÖÆÆ÷³õÊ¼»¯
+    PID_init(&motor_v,PID_POSITION,chassis_pid,12000,0);//pidÂ¿Ã˜Ã–Ã†Ã†Ã·Â³ÃµÃŠÂ¼Â»Â¯
 	PID_init(&Trace_v[0],PID_POSITION,Trace_pid,4000,0);
 	PID_init(&Trace_v[1],PID_POSITION,Trace_pid,4000,0);    
 	PID_init(&Trace_v[2],PID_POSITION,Trace_pid,4000,0);
@@ -79,8 +79,8 @@ void Chassis_task(void const *pvParameters)
 	
 	while(1)
 	{
-	Chassis_SetMode(&chassis);//ÉèÖÃµ×ÅÌÔË¶¯Ä£Ê½
-    Chassis_information_update(&chassis);//Êý¾Ý¸üÐÂ
+	Chassis_SetMode(&chassis);//Ã‰Ã¨Ã–ÃƒÂµÃ—Ã…ÃŒÃ”Ã‹Â¶Â¯Ã„Â£ÃŠÂ½
+    Chassis_information_update(&chassis);//ÃŠÃ½Â¾ÃÂ¸Ã¼ÃÃ‚
 
 	if(chassis.Mode==STOP)
 	{
@@ -90,18 +90,18 @@ void Chassis_task(void const *pvParameters)
 	else
 	{
 		
-		if(emergency_brake_flag==0)//½ô¼±ÖÆ¶¯±êÖ¾Î»Îª0
+		if(emergency_brake_flag==0)//Â½Ã´Â¼Â±Ã–Ã†Â¶Â¯Â±ÃªÃ–Â¾ÃŽÂ»ÃŽÂª0
 		{
-			Speed_Caculation(&chassis);//È«ÏòÂÖÔË¶¯Ñ§Äæ½â
+			Speed_Caculation(&chassis);//ÃˆÂ«ÃÃ²Ã‚Ã–Ã”Ã‹Â¶Â¯Ã‘Â§Ã„Ã¦Â½Ã¢
 			
-			if(chassis.Mode==REMOTE_CONTROL || chassis.Mode==TEACH || chassis.Mode==GYROSCOPE)//ÕâÈýÖÖ¾ùÎªÒ£¿ØÆ÷¿ØÖÆ
+			if(chassis.Mode==REMOTE_CONTROL || chassis.Mode==TEACH || chassis.Mode==GYROSCOPE)//Ã•Ã¢ÃˆÃ½Ã–Ã–Â¾Ã¹ÃŽÂªÃ’Â£Â¿Ã˜Ã†Ã·Â¿Ã˜Ã–Ã†
 			{
 				for(uint8_t i=0;i<4;i++)
 				{
-				chassis.motor_out[i]=(int16_t)PID_calc(&motor_v,motor_chassis[i].speed_rpm,chassis.motor_temp[i]);//¼ÆËãÃ¿¸öµç»úµÄÊä³öÖµ
+				chassis.motor_out[i]=(int16_t)PID_calc(&motor_v,motor_chassis[i].speed_rpm,chassis.motor_temp[i]);//Â¼Ã†Ã‹Ã£ÃƒÂ¿Â¸Ã¶ÂµÃ§Â»ÃºÂµÃ„ÃŠÃ¤Â³Ã¶Ã–Âµ
 				}
 			}
-			else if(chassis.Mode==SELF_MOTION)	//ÕâÊÇ×Ô¶¯Ä£Ê½£¬ÆäPID²ÎÊýÓë¿ª»·Ê±²»Í¬£¬ËùÒÔÒªµ¥¶À·Ö³öÀ´
+			else if(chassis.Mode==SELF_MOTION)	//Ã•Ã¢ÃŠÃ‡Ã—Ã”Â¶Â¯Ã„Â£ÃŠÂ½Â£Â¬Ã†Ã¤PIDÂ²ÃŽÃŠÃ½Ã“Ã«Â¿ÂªÂ»Â·ÃŠÂ±Â²Â»ÃÂ¬Â£Â¬Ã‹Ã¹Ã’Ã”Ã’ÂªÂµÂ¥Â¶Ã€Â·Ã–Â³Ã¶Ã€Â´
 			{
 				for(uint8_t c=0;c<4;c++)
 				{
@@ -112,7 +112,7 @@ void Chassis_task(void const *pvParameters)
 
 			Can_send_data(chassis.motor_out[0],chassis.motor_out[1],chassis.motor_out[2],chassis.motor_out[3]);
 		}
-		else//´¥·¢½ô¼±ÖÆ¶¯
+		else//Â´Â¥Â·Â¢Â½Ã´Â¼Â±Ã–Ã†Â¶Â¯
 		{
 			Can_send_data(0,0,0,0);
 		}
@@ -169,7 +169,7 @@ void Speed_Caculation(chassis_t *Chassis)
 	Chassis->motor_temp[0]=Chassis->Vy_set+Chassis->Vx_set+Chassis_angle.yaw*40;
 	Chassis->motor_temp[1]=Chassis->Vy_set-Chassis->Vx_set+Chassis_angle.yaw*40;
 	Chassis->motor_temp[2]=-Chassis->Vy_set-Chassis->Vx_set+Chassis_angle.yaw*40;
-	Chassis->motor_temp[3]=Chassis->Vx_set-Chassis->Vy_set+Chassis_angle.yaw*40;//×Ô¶¯ÔËÐÐÊ±Ç¿ÐÐËø¶¨³¯Ïò
+	Chassis->motor_temp[3]=Chassis->Vx_set-Chassis->Vy_set+Chassis_angle.yaw*40;//Ã—Ã”Â¶Â¯Ã”Ã‹ÃÃÃŠÂ±Ã‡Â¿ÃÃÃ‹Ã¸Â¶Â¨Â³Â¯ÃÃ²
 		
 	}
 	else if(Chassis->Mode==TEACH)
@@ -221,7 +221,7 @@ void Chassis_information_update(chassis_t *Chassis)
 	else if(Chassis->Mode==SELF_MOTION)
 	{
 
-		speed_x=flag_data.all_point[flag_index][0]-Action_now.x;//×Ô¶¯ÔËÐÐÊ±£¬ÆÚÍûÖµÊÇÏÂÒ»¸öµãµÄ×ø±ê£¬·´À¡ÖµÊÇµ±Ç°Î»ÖÃ
+		speed_x=flag_data.all_point[flag_index][0]-Action_now.x;//Ã—Ã”Â¶Â¯Ã”Ã‹ÃÃÃŠÂ±Â£Â¬Ã†ÃšÃÃ»Ã–ÂµÃŠÃ‡ÃÃ‚Ã’Â»Â¸Ã¶ÂµÃ£ÂµÃ„Ã—Ã¸Â±ÃªÂ£Â¬Â·Â´Ã€Â¡Ã–ÂµÃŠÃ‡ÂµÂ±Ã‡Â°ÃŽÂ»Ã–Ãƒ
 		speed_y=flag_data.all_point[flag_index][1]-Action_now.y;	
     	Chassis->Vx_set=speed_x*10;
 		Chassis->Vy_set=speed_y*10;
@@ -230,19 +230,27 @@ void Chassis_information_update(chassis_t *Chassis)
 	
 	else if(Chassis->Mode==GYROSCOPE)
 	{
-	    Chassis->Vx_set=RC->rc.ch[0]*3;
+		float after_analysis_x = 0.0f, after_analysis_y = 0.0f;
+
+		
+	        Chassis->Vx_set=RC->rc.ch[0]*3;
 		Chassis->Vy_set=RC->rc.ch[1]*3;
 		Chassis->Wz_set=RC->rc.ch[2]*3;
 		
-		Chassis->Vy_set=Chassis->Vy_set*cos(Chassis_angle.yaw_rad)-Chassis->Vx_set*sin(Chassis_angle.yaw_rad);//Ð¡ÍÓÂÝ£¬µ«²»ÍêÈ«ÊÇ
-		Chassis->Vx_set=Chassis->Vy_set*sin(Chassis_angle.yaw_rad)+Chassis->Vx_set*cos(Chassis_angle.yaw_rad);
+		after_analysis_y=Chassis->Vy_set*cos(Chassis_angle.yaw_rad)-Chassis->Vx_set*sin(Chassis_angle.yaw_rad);
+		after_analysis_x=Chassis->Vy_set*sin(Chassis_angle.yaw_rad)+Chassis->Vx_set*cos(Chassis_angle.yaw_rad);
+		
+		
+		Chassis->Vy_set=after_analysis_y;
+		Chassis->Vx_set=after_analysis_x;
+		
 	}
 
 }
 
 void Chassis_SetMode(chassis_t *Chassis)
 {
-	if(RC->rc.s[1]==0x03 && RC->rc.s[0]==0x03)//¸ù¾ÝÒ£¿ØÆ÷ÉÏÃæÁ½¸ö¼üÀ´ÉèÖÃÄ£Ê½
+	if(RC->rc.s[1]==0x03 && RC->rc.s[0]==0x03)//Â¸Ã¹Â¾ÃÃ’Â£Â¿Ã˜Ã†Ã·Ã‰ÃÃƒÃ¦ÃÂ½Â¸Ã¶Â¼Ã¼Ã€Â´Ã‰Ã¨Ã–ÃƒÃ„Â£ÃŠÂ½
 	  Chassis->Mode=REMOTE_CONTROL;
 	else if(RC->rc.s[1]==0x03 && RC->rc.s[0]==0x02)
 	  Chassis->Mode=GYROSCOPE;
@@ -255,19 +263,19 @@ void Chassis_SetMode(chassis_t *Chassis)
 	else if(RC->rc.s[1]==0x02 && RC->rc.s[0]==0x01)
 	  Chassis->Mode=SELF_MOTION;
 	
-	if(Chassis->Mode!=SELF_MOTION)//Ê¾½ÌÊ±£¬ÓÃÕâ¸ö¶«Î÷À´¶¨µã£¬Èýµ²¸ß¶È
+	if(Chassis->Mode!=SELF_MOTION)//ÃŠÂ¾Â½ÃŒÃŠÂ±Â£Â¬Ã“ÃƒÃ•Ã¢Â¸Ã¶Â¶Â«ÃŽÃ·Ã€Â´Â¶Â¨ÂµÃ£Â£Â¬ÃˆÃ½ÂµÂ²Â¸ÃŸÂ¶Ãˆ
 	{
-		if(RC->rc.ch[4]==0x294)//µÍ
+		if(RC->rc.ch[4]==0x294)//ÂµÃ
 		{random_flag=1;}
 		else
 		{random_flag=0;}
 		
-		if(RC->rc.ch[4]==-0x294)//ÖÐ
+		if(RC->rc.ch[4]==-0x294)//Ã–Ã
 		{medium_flag=1;}
 		 else
 		{medium_flag=0;}		 
 		
-		if(RC->rc.ch[3]==0x294)//¸ß
+		if(RC->rc.ch[3]==0x294)//Â¸ÃŸ
 		{apex_flag=1;}
 		else
 		{apex_flag=0;}	
